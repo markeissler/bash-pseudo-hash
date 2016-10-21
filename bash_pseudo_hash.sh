@@ -156,8 +156,44 @@ valueForKeyFakeAssocArray()
     printf "%b" "${value}"
 
     return 0
+}
 
-    echo -e "${value}"; return 0
+# keysForFakeAssocArray()
+# /*!
+# @abstract Returns list of keys in fake associative array
+# @discussion
+# Iterates over target_ary (an indexed array) and extracts key component from
+#   each element.
+# @param target_ary Indexed array to scan
+# @return Returns string of space separated keys (status 0) or an empty string
+#   (status 1) on failure.
+# */
+keysForFakeAssocArray() {
+    local target_ary; target_ary=()
+    local target_ary_keys; target_ary_keys=()
+    local defaultIFS="$IFS"
+    local IFS="$defaultIFS"
+
+    IFS=$' ' target_ary=( $(printf "%s " $1) ) IFS="$defaultIFS"
+
+    [[ ${#target_ary[@]} -eq 0 ]] && echo "" && return 1
+
+    local _item
+    for _item in "${target_ary[@]}"
+    do
+        _item=$_item
+        target_ary_keys+=( "${_item%%:*}" )
+    done
+    unset _item
+
+    printf "%s" "${target_ary_keys[*]}"
+
+    if [[ "${#target_ary_keys[@]}" -eq 0 ]]
+    then
+        return 1
+    fi
+
+    return 0
 }
 
 # _encode()
