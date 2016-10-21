@@ -196,6 +196,39 @@ keysForFakeAssocArray() {
     return 0
 }
 
+# prettyDumpFakeAssocArray()
+# /*!
+# @abstract Output a pretty-printed dump of fake associative array contents
+# @discussion
+# Iterates over target_ary (an indexed array) and extracts keys and values from
+#   each element. Pretty prints the output in the following format:
+# <pre>@textblock
+#   [key]: value
+# /@textblock</pre>
+# @param target_ary Indexed array to scan
+# @return Returns formatted string of key/values (status 0) or an empty string
+#   (status 1) on failure.
+# */
+prettyDumpFakeAssocArray() {
+    local target_ary; target_ary=()
+    local defaultIFS="$IFS"
+    local IFS="$defaultIFS"
+
+    IFS=$' ' target_ary=( $(printf "%s " $1) ) IFS="$defaultIFS"
+
+    [[ ${#target_ary[@]} -eq 0 ]] && echo "" && return 1
+
+    local _item
+    for _item in "${target_ary[@]}"
+    do
+        local __key="${_item%%:*}"
+        local __val="$(valueForKeyFakeAssocArray "${__key}" "${target_ary[*]}")"
+        printf "  [%s]: %s\n" "${__key}" "${__val}"
+        unset __key __val
+    done
+    unset _item
+}
+
 # _encode()
 # /*!
 # @internal
