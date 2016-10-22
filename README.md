@@ -2,10 +2,12 @@
 [![Build Status](http://ci.mixtur.com/buildStatus/icon?job=bash-pseudo-hash)]()
 [![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg)](#license)
 
-Implements "fake" associative arrays suitable for use with bash versions that precede 4.0 (with native hash table support).
+Implements "fake" associative arrays suitable for use with bash versions that
+precede 4.0 (with native hash table support) and zsh (as of v1.1.0).
 
 ## Usage
-Copy the script to a reasonable place in your project directory. Then include the script in your own bash script by sourcing the file:
+Copy the script to a reasonable place in your project directory. Then include
+the script in your own bash script by sourcing the file:
 
 ```sh
 script_path="$(builtin cd "$(dirname "${BASH_SOURCE[0]}")" && /bin/pwd)"
@@ -48,4 +50,3 @@ Submit bugs by opening an issue on this project's github page.
 ## License
 
 __bash-pseudo-hash__ is licensed under the MIT open source license.
-
