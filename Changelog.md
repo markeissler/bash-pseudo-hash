@@ -1,4 +1,11 @@
 
+v1.1.0 / 2016-10-21
+===================
+
+  * Add prettyDumpFakeAssocArray() function.
+  * Add keysForFakeAssocArray() function.
+  * Add support for zsh.
+
 v1.0.0 / 2016-09-20
 ===================
 
