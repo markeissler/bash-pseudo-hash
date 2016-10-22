@@ -14,5 +14,5 @@ test_should_get_keyval() {
   local hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
   local key="Phrase2"
   local val="$(valueForKeyFakeAssocArray "${key}" "${hash[*]}")"
-  assert_equals "${val}" "And a bottle of beer."
+  assert_equals "And a bottle of beer." "${val}"
 }
