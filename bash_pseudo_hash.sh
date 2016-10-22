@@ -75,7 +75,7 @@ setValueForKeyFakeAssocArray()
     local IFS="$defaultIFS"
     local found=false
 
-    IFS=$' ' target_ary=( $(printf "%s " $1) ) IFS="$defaultIFS"
+    IFS=$' ' target_ary=( $(printf "%s" "${1}") ) IFS="$defaultIFS"
 
     [[ -z "${target_key}" ]] && echo "" && return 1
 
@@ -138,7 +138,7 @@ valueForKeyFakeAssocArray()
     local IFS="$defaultIFS"
     local value=""
 
-    IFS=$' ' target_ary=( $(printf "%s " $2) ) IFS="$defaultIFS"
+    IFS=$' ' target_ary=( $(printf "%s" "${2}") ) IFS="$defaultIFS"
 
     [[ -z "${target_key}" || ${#target_ary[@]} -eq 0 ]] && echo "" && return 1
 
@@ -174,7 +174,7 @@ keysForFakeAssocArray() {
     local defaultIFS="$IFS"
     local IFS="$defaultIFS"
 
-    IFS=$' ' target_ary=( $(printf "%s " $1) ) IFS="$defaultIFS"
+    IFS=$' ' target_ary=( $(printf "%s" "${1}") ) IFS="$defaultIFS"
 
     [[ ${#target_ary[@]} -eq 0 ]] && echo "" && return 1
 
@@ -214,7 +214,7 @@ prettyDumpFakeAssocArray() {
     local defaultIFS="$IFS"
     local IFS="$defaultIFS"
 
-    IFS=$' ' target_ary=( $(printf "%s " $1) ) IFS="$defaultIFS"
+    IFS=$' ' target_ary=( $(printf "%s" "${1}") ) IFS="$defaultIFS"
 
     [[ ${#target_ary[@]} -eq 0 ]] && echo "" && return 1
 
