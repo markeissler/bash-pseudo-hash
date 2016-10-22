@@ -245,7 +245,7 @@ _encode()
     local i
     for (( i = 0; i<${_string_len}; i++ ))
     do
-        local __char="${string:i:1}"
+        local __char="${string:$i:1}"
         case $__char in
             [A-Za-z0-9.~_-])
                 new_string+="$__char"
