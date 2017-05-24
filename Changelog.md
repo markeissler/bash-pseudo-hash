@@ -1,4 +1,10 @@
 
+v1.1.1 / 2017-05-24
+===================
+
+  * Update README with Dependencies section.
+  * Add __bph_version() function.
+
 v1.1.0 / 2016-10-21
 ===================
 
@@ -9,7 +15,7 @@ v1.1.0 / 2016-10-21
 v1.0.0 / 2016-09-20
 ===================
 
-  * Add Changelog. 
+  * Add Changelog.
 
 
 v0.9.0 / 2016-09-20
