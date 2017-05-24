@@ -11,7 +11,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (C) 2015-2016 Mark Eissler. All rights reserved.
+# Copyright (C) 2015-2017 Mark Eissler. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -286,6 +286,14 @@ _decode()
     then
         return 1
     fi
+
+    return 0
+}
+
+__bph_version()
+{
+    local version="1.1.1"
+    printf "%s" "${version}"
 
     return 0
 }
