@@ -21,3 +21,24 @@ test_should_gets_keys() {
   local returnedKeys="$(keysForFakeAssocArray "${hash[*]}")"
   assert_equals "${expectedKeys}" "${returnedKeys}"
 }
+
+test_should_gets_keys_RETVAL() {
+  local hash=()
+  local testKeys="Phrase1 Phrase2 Phrase3"
+  local testKeys_ary=()
+  local expectedKeys="${testKeys}"
+  local defaultIFS="$IFS"
+  local IFS="$defaultIFS"
+
+  IFS=$' ' testKeys_ary=( ${testKeys} ) IFS="$defaultIFS"
+
+  for key in "${testKeys_ary[@]}"
+  do
+    local __val="100${key:(-1)} pounds of spaghettiü"
+    setValueForKeyFakeAssocArray "${key}" "${__val}" "${hash[*]}" > /dev/null
+    hash="${RETVAL}"
+  done
+
+  local returnedKeys=""; keysForFakeAssocArray "${hash[*]}" > /dev/null; returnedKeys="${RETVAL}"
+  assert_equals "${expectedKeys}" "${returnedKeys}"
+}
