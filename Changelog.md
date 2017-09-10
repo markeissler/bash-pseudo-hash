@@ -1,4 +1,10 @@
 
+v1.2.0 / 2017-09-10
+===================
+
+  * Update README with RETVAL section.
+  * Refactor to support RETVAL global var return value convention.
+
 v1.1.1 / 2017-05-24
 ===================
 
@@ -21,5 +27,5 @@ v1.0.0 / 2016-09-20
 v0.9.0 / 2016-09-20
 ===================
 
-  * First completed implementaiton.
+  * First completed implementation.
   * Initial commit
