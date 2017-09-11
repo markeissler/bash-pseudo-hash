@@ -1,4 +1,9 @@
 
+v1.2.1 / 2017-09-10
+===================
+
+  * Fix valueForKeyFakeAssocArray() to return status 1 when key not found.
+
 v1.2.0 / 2017-09-10
 ===================
 
