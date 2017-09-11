@@ -162,6 +162,7 @@ valueForKeyFakeAssocArray()
     local defaultIFS="$IFS"
     local IFS="$defaultIFS"
     local value=""
+    local found_key=false
     unset RETVAL
 
     IFS=$' ' target_ary=( ${2} ) IFS="$defaultIFS"
@@ -173,6 +174,7 @@ valueForKeyFakeAssocArray()
     do
         if [[ "${_item%%:*}" == "${target_key}" ]]
         then
+            found_key=true
             # @todo: need to support returning nil values!
             __bphp_decode "${_item#*:}" > /dev/null; value="${RETVAL}"
             break
@@ -180,7 +182,11 @@ valueForKeyFakeAssocArray()
     done
     unset _item
 
-    printf -v RETVAL "%b" "${value}"
+    if [[ "${found_key}" == false ]]
+    then
+        RETVAL="" && echo "${RETVAL}"
+        return 1
+    fi
 
     echo "${RETVAL}" && return 0
 }
