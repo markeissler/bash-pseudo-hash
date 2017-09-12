@@ -1,4 +1,11 @@
 
+v1.3.0 / 2017-09-11
+===================
+
+  * Update README to remove hexdump dependency info.
+  * Refactor __bphp_encode() to remove dependency on hexdump and improve
+    performance.
+
 v1.2.2 / 2017-09-10
 ===================
 
