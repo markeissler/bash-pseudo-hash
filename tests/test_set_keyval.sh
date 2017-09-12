@@ -7,7 +7,7 @@ test_should_set_keyval() {
     local key1="Phrase1"
     local val1="1000 pounds of spaghettiü"
     hash=( $(setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" ) )
-    assert_equals "Phrase1:1000%20pounds%20of%20spaghetti%c3%bc" "${hash[0]}"
+    assert_equals "Phrase1:1000%20pounds%20of%20spaghetti%C3%BC" "${hash[0]}"
 }
 
 test_should_set_keyval_empty() {
@@ -26,7 +26,7 @@ test_should_set_keyval_RETVAL() {
         setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" > /dev/null
         hash=( ${RETVAL} )
     }
-    assert_equals "Phrase1:1000%20pounds%20of%20spaghetti%c3%bc" "${hash[0]}"
+    assert_equals "Phrase1:1000%20pounds%20of%20spaghetti%C3%BC" "${hash[0]}"
 }
 
 test_should_set_keyval_empty_RETVAL() {
