@@ -338,7 +338,7 @@ __bphp_decode()
 
 __bph_version()
 {
-    local version="1.2.3"
+    local version="1.3.0"
 
     echo "${version}" && return 0
 }

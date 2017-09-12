@@ -82,26 +82,6 @@ The same example using `RETVAL` for variable assignment:
    valueForKeyFakeAssocArray "${key1}" "${hash[*]}" > /dev/null; val2="${RETVAL}"
 ```
 
-## Dependencies
-
-__bash-pseudo-hash__ relies on `hexdump(1)` to maintain some of the internal
-data structures. Some systems (e.g. MacOS) have this tool pre-installed while
-others (e.g. Ubuntu) may not.
-
-### Hexdump on CentOS
-
-This package should already be installed on CentOS, but just in case:
-
-```sh
-    prompt> sudo yum install util-linux
-```
-
-### Hexdump on Ubuntu
-
-```sh
-    prompt> sudo apt-get install bsdmainutils
-```
-
 ## Testing
 
 Tests have been implemented for use with the [bash_unit](https://github.com/pgrange/bash_unit)
