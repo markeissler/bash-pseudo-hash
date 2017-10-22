@@ -12,9 +12,13 @@ Copy the script to a reasonable place in your project directory. Then include
 the script in your own bash script by sourcing the file:
 
 ```sh
-script_path="$(builtin cd "$(dirname "${BASH_SOURCE[0]}")" && /bin/pwd)"
-source "${script_path}/lib/bash_pseudo_hash.sh" || return 1
+script_path="${BASH_SOURCE[0]}"; srcd="${srcd:-${(%):-%x}}"
+base_path="$(builtin cd "$(dirname "${script_path}")" && builtin pwd)"
+source "${base_path}/lib/bash_pseudo_hash.sh" || return 1
 ```
+
+The above example places the `bash_pseudo_hash.sh` script in the `lib` directory
+of your project.
 
 ### `RETVAL` return value convention
 
@@ -88,13 +92,22 @@ Tests have been implemented for use with the [bash_unit](https://github.com/pgra
 framework. To run the tests:
 
 ```sh
-    prompt> bash_unit tests/*
+    prompt> bash_unit tests/*.sh
 ```
 
 To run a specific test:
 
 ```sh
     prompt> bash_unit tests/test_set_keyval.sh
+```
+
+## Testing - zsh
+
+Tests for zsh have been implemented for use with the [ZUnit](https://github.com/zunit-zsh/zunit)
+framework. To run the tests:
+
+```sh
+    prompt> zunit tests/zunit/*.zunit
 ```
 
 ## Bugs and such

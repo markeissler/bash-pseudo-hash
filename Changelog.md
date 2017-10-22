@@ -1,4 +1,10 @@
 
+v1.4.0 / 2017-10-22
+===================
+
+  * BPH-10 Update README to add zsh testing info.
+  * BPH-9 Add zsh compatibility.
+
 v1.3.0 / 2017-09-11
 ===================
 
