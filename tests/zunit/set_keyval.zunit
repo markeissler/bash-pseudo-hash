@@ -1,0 +1,109 @@
+#!/usr/bin/env zunit
+
+@setup {
+    script_path="${BASH_SOURCE[0]}"; srcd="${srcd:-${(%):-%x}}"
+    base_path="$(builtin cd "$(dirname "${script_path}")" && builtin pwd)"
+    source "${base_path}/bash_pseudo_hash.sh" || return 1
+}
+
+@test 'should_set_keyval' {
+    local hash; hash=()
+    local key1="Phrase1"
+    local val1="1000 pounds of spaghettiü"
+    hash=( $(setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" ) )
+    assert "Phrase1:1000%20pounds%20of%20spaghetti%C3%BC" same_as "${hash[0]}"
+}
+
+@test 'should_set_keyval_empty' {
+    local hash; hash=()
+    local key1="Empty"
+    local val1=""
+    hash=( $(setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" ) )
+    assert "Empty:%40%40" same_as "${hash[0]}"
+}
+
+@test 'should_set_keyval_RETVAL' {
+    local hash; hash=()
+    local key1="Phrase1"
+    local val1="1000 pounds of spaghettiü"
+    {
+        setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" > /dev/null
+        hash=( ${RETVAL} )
+    }
+    assert "Phrase1:1000%20pounds%20of%20spaghetti%C3%BC" same_as "${hash[0]}"
+}
+
+@test 'should_set_keyval_empty_RETVAL' {
+    local hash; hash=()
+    local key1="Empty"
+    local val1=""
+    {
+        setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" > /dev/null
+        hash=( ${RETVAL} )
+    }
+    assert "Empty:%40%40" same_as "${hash[0]}"
+}
+
+@test 'should_get_keyval' {
+    local hash; hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
+    local key="Phrase2"
+    local val="$(valueForKeyFakeAssocArray "${key}" "${hash[*]}")"
+    assert "And a bottle of beer." same_as "${val}"
+}
+
+@test 'should_get_keyval_status' {
+    local hash; hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
+    local key="Phrase2"
+    run valueForKeyFakeAssocArray "${key}" "${hash[*]}"
+    assert $state equals 0
+}
+
+@test 'should_get_keyval_empty' {
+    local hash; hash=( "Empty:%40%40" )
+    local key="Empty"
+    local val="$(valueForKeyFakeAssocArray "${key}" "${hash[*]}")"
+    assert "${val}" is_empty
+}
+
+@test 'should_get_keyval_empty_status' {
+    local hash; hash=( "Empty:%40%40" )
+    local key="Empty"
+    run valueForKeyFakeAssocArray "${key}" "${hash[*]}"
+    assert $state equals 1
+}
+
+@test 'should_get_keyval_RETVAL' {
+    local hash; hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
+    local key="Phrase2"
+    local val=""
+    {
+        valueForKeyFakeAssocArray "${key}" "${hash[*]}" > /dev/null
+        val="${RETVAL}"
+    }
+    assert "And a bottle of beer." same_as "${val}"
+}
+
+@test 'should_get_keyval_empty_RETVAL' {
+    local hash; hash=( "Empty:%40%40" )
+    local key="Empty"
+    local val=""
+    {
+        run valueForKeyFakeAssocArray "${key}" "${hash[*]}" > /dev/null
+        val="${RETVAL}"
+    }
+    assert "${val}" is_empty
+}
+
+@test 'should_get_keyval_error' {
+    local hash; hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
+    local key="Phrase2x"
+    run valueForKeyFakeAssocArray "${key}" "${hash[*]}"
+    assert $state not_equal_to 0
+}
+
+@test 'should_get_keyval_error_status' {
+    local hash; hash=( "Phrase2:And%20a%20bottle%20of%20beer." )
+    local key="Phrase2x"
+    run valueForKeyFakeAssocArray "${key}" "${hash[*]}"
+    assert $state equals 2
+}

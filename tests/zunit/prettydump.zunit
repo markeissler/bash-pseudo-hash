@@ -1,0 +1,32 @@
+#!/usr/bin/env zunit
+
+@setup {
+    script_path="${BASH_SOURCE[0]}"; srcd="${srcd:-${(%):-%x}}"
+    base_path="$(builtin cd "$(dirname "${script_path}")" && builtin pwd)"
+    source "${base_path}/bash_pseudo_hash.sh" || return 1
+}
+
+@test 'should_prettydump' {
+  local hash; hash=()
+  local testKeys="Phrase1 Phrase2 Phrase3"
+  local testKeys_ary=()
+  local defaultIFS="$IFS"
+  local IFS="$defaultIFS"
+
+  IFS=$' ' testKeys_ary=( ${testKeys} ) IFS="$defaultIFS"
+
+  for key in "${testKeys_ary[@]}"
+  do
+    local __val="100${key:(-1)} pounds of spaghettiü"
+    hash=( $(setValueForKeyFakeAssocArray "${key}" "${__val}" "${hash[*]}") )
+  done
+
+  local _key _val
+  local _i=1
+  while read -r _key _val
+  do
+    local __expected="[Phrase${_i}]: 100${_i} pounds of spaghettiü"
+    assert "${__expected}" same_as "${_key} ${_val}"
+    (( _i++ ))
+  done <<< "$(prettyDumpFakeAssocArray "${hash[*]}")"
+}
