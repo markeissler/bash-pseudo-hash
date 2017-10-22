@@ -10,3 +10,6 @@ indent_size = 2
 
 [*.{sh,bash}]
 indent_size = 4
+
+[*.{zsh,zunit}]
+indent_size = 4
