@@ -15,7 +15,7 @@ test_should_set_keyval_empty() {
     local key1="Empty"
     local val1=""
     hash=( $(setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" ) )
-    assert_equals "Empty:" "${hash[0]}"
+    assert_equals "Empty:%40%40" "${hash[0]}"
 }
 
 test_should_set_keyval_RETVAL() {
@@ -37,7 +37,7 @@ test_should_set_keyval_empty_RETVAL() {
         setValueForKeyFakeAssocArray "${key1}" "${val1}" "${hash[*]}" > /dev/null
         hash=( ${RETVAL} )
     }
-    assert_equals "Empty:" "${hash[0]}"
+    assert_equals "Empty:%40%40" "${hash[0]}"
 }
 
 test_should_get_keyval() {
@@ -54,14 +54,14 @@ test_should_get_keyval_status() {
 }
 
 test_should_get_keyval_empty() {
-    local hash=( "Empty:" )
+    local hash=( "Empty:%40%40" )
     local key="Empty"
     local val="$(valueForKeyFakeAssocArray "${key}" "${hash[*]}")"
     assert_equals ""
 }
 
 test_should_get_keyval_empty_status() {
-    local hash=( "Empty:" )
+    local hash=( "Empty:%40%40" )
     local key="Empty"
     assert_status_code 1 "valueForKeyFakeAssocArray ${key} ${hash[*]}"
 }
@@ -78,7 +78,7 @@ test_should_get_keyval_RETVAL() {
 }
 
 test_should_get_keyval_empty_RETVAL() {
-    local hash=( "Empty:" )
+    local hash=( "Empty:%40%40" )
     local key="Empty"
     local val=""
     {
