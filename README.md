@@ -1,10 +1,15 @@
 # bash-pseudo-hash
 
-[![Build Status](http://ci.mixtur.com/buildStatus/icon?job=bash-pseudo-hash)]()
 [![License](http://img.shields.io/badge/license-MIT-yellowgreen.svg)](#license)
 
 Implements "fake" associative arrays suitable for use with bash versions that
 precede 4.0 (with native hash table support) and zsh (as of v1.1.0).
+
+## Build Status
+
+| Service    | bash 4.3 | zsh 5.0.7 | zsh 5.3+ |
+|:-----------|:--------:|:---------:|:--------:|
+| Jenkins CI | [![Build Status](http://ci.mixtur.com/buildStatus/icon?job=bash-pseudo-hash+%28bash+4%29)]() | [![Build Status](http://ci.mixtur.com/buildStatus/icon?job=bash-pseudo-hash+%28zsh+5%29)]() | [![Build Status](http://ci.mixtur.com/buildStatus/icon?job=bash-pseudo-hash+%28zsh+5.3%2B%29)]() |
 
 ## Usage
 
@@ -109,6 +114,11 @@ framework. To run the tests:
 ```sh
     prompt> zunit tests/zunit/*.zunit
 ```
+
+>NOTE: At this time, tests will fail on zsh 5.0 due to variable quoting bugs in
+the ZUnit framework itself. Automated tests are currently using the following
+forked branch: [markeissler/zunit](https://github.com/markeissler/zunit/tree/moe-fix-unquoted-vars).
+A more detailed code review of the ZUnit source needs to be performed.
 
 ## Bugs and such
 
