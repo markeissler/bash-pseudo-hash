@@ -1,4 +1,11 @@
 
+v1.4.1 / 2017-10-29
+===================
+
+  * BPH-13 Tests fail on zsh 5.0.7 (var assignment bugs in ZUnit).
+  * BPH-12 Fix encode/decode for zsh 5.3+.
+  * BPH-11 Update README to revise Build Status to include bash/zsh versions.
+
 v1.4.0 / 2017-10-22
 ===================
 
